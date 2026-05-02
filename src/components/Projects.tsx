@@ -13,7 +13,7 @@ const projects = [
     title: "Skill Sphere",
     sub: "Full Stack Project",
     desc: "SkillSphere is a modern, high-performance E-learning platform built to deliver a smooth and engaging learning experience.",
-    tags: ["Next.js 15", "React.js", "Hero.Ui", "MongoDB", "Tailwind CSS","lenis"],
+    tags: ["Next.js 15", "React.js", "Hero.Ui", "MongoDB", "Tailwind CSS", "lenis"],
     repo: "https://github.com/sohanur-rahman-coding/skill-sphere",
     live: "https://skill-sphere-2z7vlr4mh-sohanur-rahman-codings-projects.vercel.app/",
   },
@@ -26,7 +26,7 @@ const projects = [
     title: "Keen Keeper",
     sub: "Full Stack Project",
     desc: "A responsive Friend Tracker app to manage friendships and track interactions like calls, texts, and video chats.",
-    tags: ["React.js", "git", "next.js", "MongoDB","github"],
+    tags: ["React.js", "git", "next.js", "MongoDB", "github"],
     repo: "https://github.com/sohanur-rahman-coding/keen-keeper",
     live: "https://keen-keeper-yxwy-8r7rb5ih2-sohanur-rahman-codings-projects.vercel.app/",
   },
@@ -39,7 +39,7 @@ const projects = [
     title: "Digi Tools",
     sub: "Educational Digital Platform",
     desc: "DigiTools is a clean and modern React-based web application where users can explore premium digital tools. ",
-    tags: ["HTML%","Tailwind CSS","JavaScript (ES6+)","Daisy Ui"],
+    tags: ["HTML%", "Tailwind CSS", "JavaScript (ES6+)", "Daisy Ui"],
     repo: "https://github.com/sohanur-rahman-coding/Digi-Tools",
     live: "https://sohanur-rahman-coding.github.io/Digi-Tools/",
   },
@@ -52,7 +52,7 @@ const projects = [
     title: "Job Tracker",
     sub: "Career Management Tool",
     desc: "Job Status Tracker is a dynamic web application that allows users to manage job applications .",
-    tags: ["HTML%","Tailwind CSS","JavaScript (ES6+)","Daisy Ui"],
+    tags: ["HTML%", "Tailwind CSS", "JavaScript (ES6+)", "Daisy Ui"],
     repo: "https://github.com/sohanur-rahman-coding/Job-Tracker",
     live: "https://sohanur-rahman-coding.github.io/Job-Tracker/",
   },
@@ -65,7 +65,7 @@ const projects = [
     title: "GitHub Issues Tracker",
     sub: "Issue Management Tool",
     desc: "GitHub Issue Tracker is a dynamic and interactive web application .",
-    tags: ["HTML5","Tailwind CSS","JavaScript (ES6+)","Daisy Ui"],
+    tags: ["HTML5", "Tailwind CSS", "JavaScript (ES6+)", "Daisy Ui"],
     repo: "https://github.com/sohanur-rahman-coding/GitHub-Issues-Tracker",
     live: "https://sohanur-rahman-coding.github.io/GitHub-Issues-Tracker/",
   },
@@ -141,7 +141,7 @@ export default function Projects() {
                   initial={{ opacity: 0, scale: 0.92 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.92 }}
-                  transition={{ duration: 0.3, ease: [0.16,1,0.3,1] }}
+                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                   className="card"
                   style={{ borderRadius: 20, background: "rgba(255,255,255,0.022)", border: "1px solid rgba(255,255,255,0.055)", overflow: "hidden" }}
                 >
@@ -165,8 +165,55 @@ export default function Projects() {
                       ))}
                     </div>
                     <div style={{ display: "flex", gap: "0.6rem" }}>
-                      <a href="#" style={{ flex: 1, display: "inline-flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-syne)", fontWeight: 600, fontSize: "0.75rem", padding: "0.6rem", borderRadius: 100, background: "linear-gradient(135deg,var(--orange),var(--orange2))", color: "#000", textDecoration: "none", transition: "all 0.3s", boxShadow: "0 4px 16px rgba(255,122,0,0.25)" }}>Live Demo</a>
-                      <a href="#" style={{ flex: 1, display: "inline-flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-syne)", fontWeight: 600, fontSize: "0.75rem", padding: "0.6rem", borderRadius: 100, background: "transparent", color: "var(--cream)", border: "1px solid rgba(255,255,255,0.12)", textDecoration: "none", transition: "all 0.3s" }}>GitHub</a>
+                      {/* ডাইনামিক লাইভ ডেমো লিংক */}
+                      <a
+                        href={p.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          flex: 1,
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontFamily: "var(--font-syne)",
+                          fontWeight: 600,
+                          fontSize: "0.75rem",
+                          padding: "0.6rem",
+                          borderRadius: 100,
+                          background: "linear-gradient(135deg,var(--orange),var(--orange2))",
+                          color: "#000",
+                          textDecoration: "none",
+                          transition: "all 0.3s",
+                          boxShadow: "0 4px 16px rgba(255,122,0,0.25)"
+                        }}
+                      >
+                        Live Demo
+                      </a>
+
+                      {/* ডাইনামিক গিটহাব রিপোজিটরি লিংক */}
+                      <a
+                        href={p.repo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          flex: 1,
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontFamily: "var(--font-syne)",
+                          fontWeight: 600,
+                          fontSize: "0.75rem",
+                          padding: "0.6rem",
+                          borderRadius: 100,
+                          background: "transparent",
+                          color: "var(--cream)",
+                          border: "1px solid rgba(255,255,255,0.12)",
+                          textDecoration: "none",
+                          transition: "all 0.3s"
+                        }}
+                      >
+                        GitHub
+                      </a>
                     </div>
                   </div>
                 </motion.article>
