@@ -141,7 +141,13 @@ export default function Projects() {
             </motion.div>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
+          <div style={{
+  display: "grid",
+  // নিচে এটি সব ডিভাইসের জন্য কলাম সংখ্যা অটো সেট করবে
+  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))",
+  gap: "1.5rem",
+  width: "100%"
+}}>
             <AnimatePresence mode="popLayout">
               {filtered.map((p) => (
                 <motion.article
