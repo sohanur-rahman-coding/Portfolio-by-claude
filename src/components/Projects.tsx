@@ -2,12 +2,21 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "@/lib/useInView";
+import Image from "next/image"; 
+
+// Assets import
+import Skill_sphere from "@/assests/skill-sphere.png";
+import keen_keeper from "@/assests/keen-keeper.png";
+import digi_tools from "@/assests/dig-tools.png";
+import job from "@/assests/job-tracker.png";
+import issue from "@/assests/issue-tracker.png";
+import dragon from "@/assests/dragon-news.png";
 
 const projects = [
   {
     id: 1,
     category: "fullstack",
-    letters: "SS",
+    image: Skill_sphere,
     color: "#ff7a00",
     bg: "linear-gradient(135deg,#1a0a00,#0e0600)",
     title: "Skill Sphere",
@@ -20,7 +29,7 @@ const projects = [
   {
     id: 2,
     category: "fullstack",
-    letters: "KK",
+    image: keen_keeper,
     color: "#3b82f6",
     bg: "linear-gradient(135deg,#000a1a,#000611)",
     title: "Keen Keeper",
@@ -33,7 +42,7 @@ const projects = [
   {
     id: 3,
     category: "frontend",
-    letters: "DT",
+    image: digi_tools,
     color: "#a855f7",
     bg: "linear-gradient(135deg,#0d0012,#080009)",
     title: "Digi Tools",
@@ -41,12 +50,12 @@ const projects = [
     desc: "DigiTools is a clean and modern React-based web application where users can explore premium digital tools. ",
     tags: ["HTML%", "Tailwind CSS", "JavaScript (ES6+)", "Daisy Ui"],
     repo: "https://github.com/sohanur-rahman-coding/Digi-Tools",
-    live: "https://sohanur-rahman-coding.github.io/Digi-Tools/",
+    live: "https://digi-tools-a06.netlify.app/",
   },
   {
     id: 4,
     category: "fullstack",
-    letters: "JT",
+    image: job,
     color: "#10b981",
     bg: "linear-gradient(135deg,#001a15,#002211)",
     title: "Job Tracker",
@@ -59,7 +68,7 @@ const projects = [
   {
     id: 5,
     category: "fullstack",
-    letters: "GI",
+    image: issue,
     color: "#f59e0b",
     bg: "linear-gradient(135deg,#0a0800,#001a0a)",
     title: "GitHub Issues Tracker",
@@ -72,7 +81,7 @@ const projects = [
   {
     id: 6,
     category: "frontend",
-    letters: "DN",
+    image: dragon,
     color: "#f43f5e",
     bg: "linear-gradient(135deg,#1a0005,#110008)",
     title: "Dragon News",
@@ -145,13 +154,34 @@ export default function Projects() {
                   className="card"
                   style={{ borderRadius: 20, background: "rgba(255,255,255,0.022)", border: "1px solid rgba(255,255,255,0.055)", overflow: "hidden" }}
                 >
-                  {/* Preview */}
-                  <div style={{ height: 158, position: "relative", background: p.bg, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-                    <span style={{ fontFamily: "var(--font-syne)", fontWeight: 800, fontSize: "3.5rem", color: `${p.color}15`, letterSpacing: "-0.05em", position: "absolute", userSelect: "none" }}>{p.letters}</span>
-                    <div style={{ width: 54, height: 54, borderRadius: 16, background: `${p.color}18`, border: `1px solid ${p.color}30`, display: "flex", alignItems: "center", justifyContent: "center", position: "relative", zIndex: 1 }}>
-                      <span style={{ fontFamily: "var(--font-syne)", fontWeight: 800, fontSize: "1.05rem", color: p.color }}>{p.letters}</span>
-                    </div>
-                    <span style={{ position: "absolute", top: "0.75rem", right: "0.75rem", fontFamily: "var(--font-mono)", fontSize: "0.6rem", padding: "0.2rem 0.65rem", borderRadius: 100, color: p.color, border: `1px solid ${p.color}40`, background: `${p.color}12`, letterSpacing: "0.1em", textTransform: "capitalize" }}>{p.category}</span>
+                  {/* Preview Section - Image now fills this container */}
+                  <div style={{ height: 180, position: "relative", overflow: "hidden" }}>
+                    <Image 
+                      src={p.image} 
+                      alt={p.title}
+                      fill // Container এর পুরো জায়গা নেবে
+                      style={{ objectFit: 'cover' }} // ইমেজ ক্রপ হয়ে জায়গা ফিল করবে
+                    />
+                    
+                    {/* Category Tag Overlay */}
+                    <span style={{ 
+                      position: "absolute", 
+                      top: "0.75rem", 
+                      right: "0.75rem", 
+                      fontFamily: "var(--font-mono)", 
+                      fontSize: "0.6rem", 
+                      padding: "0.2rem 0.65rem", 
+                      borderRadius: 100, 
+                      color: p.color, 
+                      border: `1px solid ${p.color}40`, 
+                      background: "rgba(0,0,0,0.5)", // ইমেজ এর উপর লেখা বোঝার জন্য ব্যাকগ্রাউন্ড
+                      backdropFilter: "blur(4px)",
+                      letterSpacing: "0.1em", 
+                      textTransform: "capitalize",
+                      zIndex: 1
+                    }}>
+                      {p.category}
+                    </span>
                   </div>
 
                   {/* Body */}
@@ -165,7 +195,6 @@ export default function Projects() {
                       ))}
                     </div>
                     <div style={{ display: "flex", gap: "0.6rem" }}>
-                      {/* ডাইনামিক লাইভ ডেমো লিংক */}
                       <a
                         href={p.live}
                         target="_blank"
@@ -190,7 +219,6 @@ export default function Projects() {
                         Live Demo
                       </a>
 
-                      {/* ডাইনামিক গিটহাব রিপোজিটরি লিংক */}
                       <a
                         href={p.repo}
                         target="_blank"
