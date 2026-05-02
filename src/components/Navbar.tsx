@@ -25,15 +25,33 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    const sections = ["home", "about", "skills", "projects", "education", "contact"];
-    const obs = new IntersectionObserver(
-      (entries) => { entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id); }); },
-      { threshold: 0.3, rootMargin: "-80px 0px -40% 0px" }
-    );
-    sections.forEach((id) => { const el = document.getElementById(id); if (el) obs.observe(el); });
-    return () => obs.disconnect();
-  }, []);
+  // Navbar.tsx এর IntersectionObserver অংশটি এটি দিয়ে রিপ্লেস করুন:
+useEffect(() => {
+  const sections = ["home", "about", "skills", "projects", "education", "contact"];
+  
+  const obs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        // e.isIntersecting এর সাথে e.intersectionRatio চেক করলে একুরেসি বাড়বে
+        if (e.isIntersecting && e.intersectionRatio >= 0.1) {
+          setActive(e.target.id);
+        }
+      });
+    },
+    { 
+      // rootMargin এবং threshold একটু ফ্লেক্সিবল করা হয়েছে
+      threshold: [0.1, 0.5], 
+      rootMargin: "-10% 0px -70% 0px" 
+    }
+  );
+
+  sections.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) obs.observe(el);
+  });
+
+  return () => obs.disconnect();
+}, []);
 
   // Lock body scroll when menu open
   useEffect(() => {
