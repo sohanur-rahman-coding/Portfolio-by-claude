@@ -162,7 +162,7 @@ export default function Contact() {
                         <label style={{ display: "block", fontFamily: "var(--font-mono)", fontSize: "0.65rem", color: "var(--muted2)", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "0.6rem" }}>
                           {field.charAt(0).toUpperCase() + field.slice(1)}
                         </label>
-                        <input type={field === "email" ? "email" : "text"} placeholder={field === "name" ? "John Doe" : "john@example.com"} value={form[field as keyof typeof form]} onChange={(e) => setForm({ ...form, [field]: e.target.value })} className="form-input" />
+                        <input type={field === "email" ? "email" : "text"} placeholder={field === "name" ? "John Doe" : "john@example.com"} value={form[field]} onChange={(e) => setForm({ ...form, [field]: e.target.value })} className="form-input" />
                       </div>
                     ))}
                   </div>
