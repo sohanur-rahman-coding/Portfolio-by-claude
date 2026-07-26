@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+
 import { Syne, DM_Sans, DM_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -23,7 +23,7 @@ const dmMono = DM_Mono({
   display: "swap",
 });
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Sohanur Rahman — MERN Stack Developer",
   description:
     "Passionate MERN Stack Developer from Bangladesh building modern, scalable web applications.",
@@ -41,9 +41,7 @@ import Cursor from "@/components/Cursor";
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" className={`${syne.variable} ${dmSans.variable} ${dmMono.variable}`}>
       <body>

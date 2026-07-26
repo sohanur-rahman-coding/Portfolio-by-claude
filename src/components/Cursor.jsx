@@ -2,13 +2,13 @@
 import { useEffect, useRef } from "react";
 
 export default function Cursor() {
-  const dotRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<HTMLDivElement>(null);
+  const dotRef = useRef(null);
+  const ringRef = useRef(null);
   const rxRef = useRef(0);
   const ryRef = useRef(0);
   const mxRef = useRef(0);
   const myRef = useRef(0);
-  const rafRef = useRef<number>(0);
+  const rafRef = useRef(0);
 
   useEffect(() => {
     const isPointer = window.matchMedia("(pointer:fine)").matches;
@@ -18,9 +18,9 @@ export default function Cursor() {
     const ring = ringRef.current;
     if (!dot || !ring) return;
 
-    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+    const lerp = (a, b, t) => a + (b - a) * t;
 
-    const onMove = (e: MouseEvent) => {
+    const onMove = (e) => {
       mxRef.current = e.clientX;
       myRef.current = e.clientY;
       dot.style.left = e.clientX + "px";

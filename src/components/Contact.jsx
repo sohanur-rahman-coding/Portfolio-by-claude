@@ -12,10 +12,10 @@ const contactInfo = [
 export default function Contact() {
   const { ref, inView } = useInView();
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
-  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+  const [status, setStatus] = useState("idle");
   const [error, setError] = useState(false);
 
-  const handleSubmit = async (e?: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     if (e) e.preventDefault();
     if (!form.name || !form.email || !form.message) {
       setError(true);
@@ -24,18 +24,18 @@ export default function Contact() {
     }
     setStatus("sending");
     try {
-      const res = await fetch("https://formsubmit.co/ajax/sohanbd413@gmail.com", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
           "Accept": "application/json"
         },
         body: JSON.stringify({
+          access_key: "YOUR_WEB3FORMS_ACCESS_KEY_HERE",
           name: form.name,
           email: form.email,
           subject: form.subject || "New Portfolio Message",
           message: form.message,
-          _subject: "New contact from your portfolio!"
         }),
       });
       if (res.ok) {
