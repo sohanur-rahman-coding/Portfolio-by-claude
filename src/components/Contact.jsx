@@ -31,7 +31,7 @@ export default function Contact() {
           "Accept": "application/json"
         },
         body: JSON.stringify({
-          access_key: "YOUR_WEB3FORMS_ACCESS_KEY_HERE",
+          access_key: "b4525aa7-24e4-47a4-a7ee-a3db48e2531e",
           name: form.name,
           email: form.email,
           subject: form.subject || "New Portfolio Message",
