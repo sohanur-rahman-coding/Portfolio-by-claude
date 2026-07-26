@@ -59,7 +59,7 @@ useEffect(() => {
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
-  const scrollTo = (href: string) => {
+  const scrollTo = (href) => {
     const id = href.replace("#", "");
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
     setMobileOpen(false);

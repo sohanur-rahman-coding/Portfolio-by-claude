@@ -16,7 +16,7 @@ export default function SideNav() {
     return () => obs.disconnect();
   }, []);
 
-  const scrollTo = (id: string) => {
+  const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 

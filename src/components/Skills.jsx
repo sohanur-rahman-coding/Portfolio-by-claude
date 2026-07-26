@@ -36,16 +36,16 @@ const skillCategories = [
   },
 ];
 
-function SkillBar({ name, pct, animate }: { name: string; pct: number; animate: boolean }) {
+function SkillBar({ name, pct, animate }) {
   const [displayed, setDisplayed] = useState(0);
-  const rafRef = useRef<number>(0);
-  const startRef = useRef<number>(0);
+  const rafRef = useRef(0);
+  const startRef = useRef(0);
 
   useEffect(() => {
     if (!animate) return;
     startRef.current = performance.now();
     const duration = 1600;
-    const tick = (now: number) => {
+    const tick = (now) => {
       const elapsed = now - startRef.current;
       const progress = Math.min(elapsed / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);

@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 
 export default function ProgressBar() {
-  const barRef = useRef<HTMLDivElement>(null);
+  const barRef = useRef(null);
 
   useEffect(() => {
     const bar = barRef.current;
