@@ -12,21 +12,21 @@ const contactInfo = [
 export default function Contact() {
   const { ref, inView } = useInView();
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
-  const [status, setStatus] = useState("idle");
-  const [error, setError] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+  const [validationError, setValidationError] = useState(false);
 
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
     if (!form.name || !form.email || !form.message) {
-      setError(true);
-      setTimeout(() => setError(false), 2500);
+      setValidationError(true);
+      setTimeout(() => setValidationError(false), 2500);
       return;
     }
     setStatus("sending");
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { 
+        headers: {
           "Content-Type": "application/json",
           "Accept": "application/json"
         },
@@ -36,18 +36,20 @@ export default function Contact() {
           email: form.email,
           subject: form.subject || "New Portfolio Message",
           message: form.message,
+          from_name: "Portfolio Contact Form",
         }),
       });
-      if (res.ok) {
+      const data = await res.json();
+      if (data.success) {
         setStatus("sent");
         setForm({ name: "", email: "", subject: "", message: "" });
       } else {
-        throw new Error("Failed to send");
+        setStatus("error");
+        setTimeout(() => setStatus("idle"), 3000);
       }
     } catch (err) {
-      setError(true);
-      setTimeout(() => setError(false), 2500);
-      setStatus("idle");
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 3000);
     }
   };
   const socialLinks = [
@@ -177,8 +179,8 @@ export default function Contact() {
                   <motion.button type="submit" disabled={status === "sending"}
                     whileHover={status === "sending" ? {} : { scale: 1.02 }}
                     whileTap={status === "sending" ? {} : { scale: 0.98 }}
-                    style={{ width: "100%", padding: "1rem", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.75rem", fontFamily: "var(--font-syne)", fontWeight: 600, fontSize: "0.95rem", borderRadius: 100, border: "none", cursor: status === "sending" ? "wait" : "pointer", background: error ? "rgba(255,60,60,0.85)" : "linear-gradient(135deg,var(--orange),var(--orange2))", color: "#000", transition: "all 0.3s", boxShadow: error ? "none" : "0 4px 24px rgba(255,122,0,0.35)", opacity: status === "sending" ? 0.75 : 1 }}>
-                    {status === "sending" ? "Sending..." : error ? "Please fill required fields" : "Send Message →"}
+                    style={{ width: "100%", padding: "1rem", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.75rem", fontFamily: "var(--font-syne)", fontWeight: 600, fontSize: "0.95rem", borderRadius: 100, border: "none", cursor: status === "sending" ? "wait" : "pointer", background: status === "error" || validationError ? "rgba(255,60,60,0.85)" : "linear-gradient(135deg,var(--orange),var(--orange2))", color: "#000", transition: "all 0.3s", boxShadow: status === "error" || validationError ? "none" : "0 4px 24px rgba(255,122,0,0.35)", opacity: status === "sending" ? 0.75 : 1 }}>
+                    {status === "sending" ? "Sending..." : status === "error" ? "❌ Failed — Try Again" : validationError ? "⚠ Please fill all fields" : "Send Message →"}
                   </motion.button>
                   <p style={{ textAlign: "center", fontSize: "0.72rem", color: "var(--muted)", marginTop: "0.75rem", fontFamily: "var(--font-mono)", letterSpacing: "0.04em" }}>I typically reply within 24 hours</p>
                 </form>
