@@ -15,15 +15,40 @@ export default function Contact() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const [error, setError] = useState(false);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     if (!form.name || !form.email || !form.message) {
       setError(true);
       setTimeout(() => setError(false), 2500);
       return;
     }
     setStatus("sending");
-    await new Promise((r) => setTimeout(r, 1600));
-    setStatus("sent");
+    try {
+      const res = await fetch("https://formsubmit.co/ajax/sohanbd413@gmail.com", {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          subject: form.subject || "New Portfolio Message",
+          message: form.message,
+          _subject: "New contact from your portfolio!"
+        }),
+      });
+      if (res.ok) {
+        setStatus("sent");
+        setForm({ name: "", email: "", subject: "", message: "" });
+      } else {
+        throw new Error("Failed to send");
+      }
+    } catch (err) {
+      setError(true);
+      setTimeout(() => setError(false), 2500);
+      setStatus("idle");
+    }
   };
   const socialLinks = [
     {
@@ -79,17 +104,21 @@ export default function Contact() {
             <motion.div variants={{ hidden: { opacity: 0, x: -30 }, visible: { opacity: 1, x: 0 } }}
               style={{ display: "flex", flexDirection: "column", gap: "0.9rem" }}>
               {contactInfo.map((item) => (
-                <a key={item.label} href={item.href}
+                <motion.a key={item.label} href={item.href}
+                  whileHover={{ scale: 1.02, x: 5 }}
+                  whileTap={{ scale: 0.98 }}
                   className="card contact-info-item"
                   style={{ display: "flex", alignItems: "center", gap: "1rem", padding: "1.25rem 1.5rem", borderRadius: 16, textDecoration: "none", background: "rgba(255,255,255,0.022)", border: "1px solid rgba(255,255,255,0.055)" }}>
-                  <div style={{ width: 42, height: 42, borderRadius: 12, background: "rgba(255,122,0,0.08)", border: "1px solid rgba(255,122,0,0.14)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: "1rem" }}>
+                  <motion.div 
+                    whileHover={{ rotate: 10, scale: 1.1 }}
+                    style={{ width: 42, height: 42, borderRadius: 12, background: "rgba(255,122,0,0.08)", border: "1px solid rgba(255,122,0,0.14)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: "1.2rem" }}>
                     {item.icon}
-                  </div>
+                  </motion.div>
                   <div>
                     <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", color: "var(--muted)", letterSpacing: "0.06em", marginBottom: "0.15rem" }}>{item.label}</div>
                     <div style={{ fontSize: "0.9rem", color: "var(--cream)", fontWeight: 500 }}>{item.value}</div>
                   </div>
-                </a>
+                </motion.a>
               ))}
 
               <motion.div
@@ -102,10 +131,12 @@ export default function Contact() {
                 <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.62rem", color: "var(--muted)", letterSpacing: "0.2em", textTransform: "uppercase" }}>Follow</span>
                 <span style={{ width: 28, height: 1, background: "rgba(255,255,255,0.1)" }} />
                 {socialLinks.map((s) => (
-                  <a key={s.title} href={s.href} target="_blank" rel="noreferrer" title={s.title} className="social-icon"
+                  <motion.a key={s.title} href={s.href} target="_blank" rel="noreferrer" title={s.title} className="social-icon"
+                    whileHover={{ scale: 1.15, rotate: 5, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
                     style={{ width: 38, height: 38, borderRadius: 12, border: "1px solid rgba(255,255,255,0.09)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--muted2)", textDecoration: "none", transition: "all 0.3s" }}>
                     {s.icon}
-                  </a>
+                  </motion.a>
                 ))}
               </motion.div>
             </motion.div>
@@ -115,16 +146,16 @@ export default function Contact() {
               className="card" style={{ borderRadius: 22, padding: "clamp(1.5rem,3vw,2.5rem)", background: "rgba(255,255,255,0.022)", border: "1px solid rgba(255,255,255,0.055)" }}>
 
               {status === "sent" ? (
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "3rem 2rem", animation: "popIn 0.4s cubic-bezier(0.16,1,0.3,1)" }}>
-                  <div style={{ width: 64, height: 64, borderRadius: "50%", background: "rgba(255,122,0,0.1)", border: "1px solid rgba(255,122,0,0.25)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem", fontSize: "1.6rem", color: "var(--orange)" }}>✓</div>
+                <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "3rem 2rem" }}>
+                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1, rotate: 360 }} transition={{ type: "spring", stiffness: 200, damping: 15 }} style={{ width: 64, height: 64, borderRadius: "50%", background: "rgba(255,122,0,0.1)", border: "1px solid rgba(255,122,0,0.25)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem", fontSize: "1.6rem", color: "var(--orange)" }}>✓</motion.div>
                   <h3 style={{ fontFamily: "var(--font-syne)", fontSize: "1.4rem", fontWeight: 700, marginBottom: "0.75rem", color: "var(--white)" }}>Message Sent!</h3>
                   <p style={{ fontSize: "0.9rem", color: "var(--muted)", marginBottom: "1.5rem", lineHeight: 1.7 }}>Thanks for reaching out. I&apos;ll get back to you within 24 hours.</p>
-                  <button onClick={() => setStatus("idle")} style={{ fontFamily: "var(--font-syne)", fontWeight: 600, fontSize: "0.875rem", padding: "0.75rem 1.75rem", borderRadius: 100, background: "transparent", color: "var(--orange)", border: "1px solid rgba(255,122,0,0.35)", cursor: "pointer", transition: "all 0.3s" }}>
+                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => setStatus("idle")} style={{ fontFamily: "var(--font-syne)", fontWeight: 600, fontSize: "0.875rem", padding: "0.75rem 1.75rem", borderRadius: 100, background: "transparent", color: "var(--orange)", border: "1px solid rgba(255,122,0,0.35)", cursor: "pointer", transition: "all 0.3s" }}>
                     Send Another
-                  </button>
-                </div>
+                  </motion.button>
+                </motion.div>
               ) : (
-                <>
+                <form onSubmit={handleSubmit}>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }} className="form-row">
                     {["name", "email"].map((field) => (
                       <div key={field} style={{ marginBottom: "1.1rem" }}>
@@ -143,12 +174,14 @@ export default function Contact() {
                     <label style={{ display: "block", fontFamily: "var(--font-mono)", fontSize: "0.65rem", color: "var(--muted2)", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "0.6rem" }}>Message</label>
                     <textarea placeholder="Tell me about your project..." value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className="form-input" style={{ resize: "vertical", minHeight: 130, fontFamily: "var(--font-dm)" }} />
                   </div>
-                  <button onClick={handleSubmit} disabled={status === "sending"}
+                  <motion.button type="submit" disabled={status === "sending"}
+                    whileHover={status === "sending" ? {} : { scale: 1.02 }}
+                    whileTap={status === "sending" ? {} : { scale: 0.98 }}
                     style={{ width: "100%", padding: "1rem", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.75rem", fontFamily: "var(--font-syne)", fontWeight: 600, fontSize: "0.95rem", borderRadius: 100, border: "none", cursor: status === "sending" ? "wait" : "pointer", background: error ? "rgba(255,60,60,0.85)" : "linear-gradient(135deg,var(--orange),var(--orange2))", color: "#000", transition: "all 0.3s", boxShadow: error ? "none" : "0 4px 24px rgba(255,122,0,0.35)", opacity: status === "sending" ? 0.75 : 1 }}>
                     {status === "sending" ? "Sending..." : error ? "Please fill required fields" : "Send Message →"}
-                  </button>
+                  </motion.button>
                   <p style={{ textAlign: "center", fontSize: "0.72rem", color: "var(--muted)", marginTop: "0.75rem", fontFamily: "var(--font-mono)", letterSpacing: "0.04em" }}>I typically reply within 24 hours</p>
-                </>
+                </form>
               )}
             </motion.div>
           </div>

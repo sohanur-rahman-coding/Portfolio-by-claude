@@ -167,7 +167,9 @@ export default function Hero() {
               style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap", marginBottom: "2.5rem" }}
               className="hero-actions"
             >
-              <a href="#contact" onClick={(e) => { e.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }); }}
+              <motion.a href="#contact" onClick={(e) => { e.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }); }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 style={{
                   display: "inline-flex", alignItems: "center", gap: "0.6rem",
                   fontFamily: "var(--font-syne)", fontWeight: 600, fontSize: "0.875rem",
@@ -179,9 +181,14 @@ export default function Hero() {
                 className="hero-btn-primary"
               >
                 Hire Me
-                <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-              </a>
-              <a href="#" style={{
+                <motion.div animate={{ x: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }} style={{ display: "flex", alignItems: "center" }}>
+                  <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                </motion.div>
+              </motion.a>
+              <motion.a href="/Sohanur_Rahman_CV.pdf" download="Sohanur_Rahman_CV.pdf"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                style={{
                 display: "inline-flex", alignItems: "center", gap: "0.6rem",
                 fontFamily: "var(--font-syne)", fontWeight: 600, fontSize: "0.875rem",
                 letterSpacing: "0.02em", borderRadius: "100px", padding: "0.9rem 2rem",
@@ -189,8 +196,10 @@ export default function Hero() {
                 textDecoration: "none", transition: "all 0.35s cubic-bezier(0.23,1,0.32,1)",
               }} className="hero-btn-outline">
                 Download CV
-                <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M12 15V3M5 20h14M7 10l5 5 5-5" /></svg>
-              </a>
+                <motion.div animate={{ y: [0, 3, 0] }} transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }} style={{ display: "flex", alignItems: "center" }}>
+                  <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M12 15V3M5 20h14M7 10l5 5 5-5" /></svg>
+                </motion.div>
+              </motion.a>
             </motion.div>
 
             {/* Socials */}
@@ -204,10 +213,12 @@ export default function Hero() {
               <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.62rem", color: "var(--muted)", letterSpacing: "0.2em", textTransform: "uppercase" }}>Follow</span>
               <span style={{ width: 28, height: 1, background: "rgba(255,255,255,0.1)" }} />
               {socialLinks.map((s) => (
-                <a key={s.title} href={s.href} target="_blank" rel="noreferrer" title={s.title} className="social-icon"
+                <motion.a key={s.title} href={s.href} target="_blank" rel="noreferrer" title={s.title} className="social-icon"
+                  whileHover={{ scale: 1.15, rotate: 5, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
                   style={{ width: 38, height: 38, borderRadius: 12, border: "1px solid rgba(255,255,255,0.09)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--muted2)", textDecoration: "none", transition: "all 0.3s" }}>
                   {s.icon}
-                </a>
+                </motion.a>
               ))}
             </motion.div>
           </motion.div>
@@ -231,7 +242,7 @@ export default function Hero() {
               <span className="orbit-dot-2" />
               {/* Avatar */}
               <div style={{ width: 220, height: 220, borderRadius: "50%", background: "linear-gradient(135deg,#181818,#0e0e0e)", border: "2px solid rgba(255,122,0,0.2)", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden", boxShadow: "0 0 60px rgba(255,122,0,0.12), inset 0 0 40px rgba(255,122,0,0.04)" }}>
-                <span style={{ fontFamily: "var(--font-syne)", fontWeight: 800, fontSize: "3.5rem", background: "linear-gradient(135deg,var(--orange),var(--orange2))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}><Image height={400} width={400} alt="DP" src={DP}></Image></span>
+                <span style={{ fontFamily: "var(--font-syne)", fontWeight: 800, fontSize: "3.5rem", background: "linear-gradient(135deg,var(--orange),var(--orange2))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}><Image height={400} width={400} alt="DP" src={DP} priority sizes="(max-width: 768px) 100vw, 400px"></Image></span>
                 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg,rgba(255,122,0,0.04) 0%,transparent 100%)" }} />
               </div>
 

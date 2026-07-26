@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 import logo from "@/assests/Gemini_Generated_Image_whvnbqwhvnbqwhvn (1).png";
 
 export default function Footer() {
@@ -59,7 +60,7 @@ export default function Footer() {
             style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-mono)", fontSize: "0.7rem", color: "var(--muted2)", background: "none", border: "none", cursor: "pointer", transition: "color 0.3s,transform 0.3s", letterSpacing: "0.08em" }}
             className="back-top">
             Back to top
-            <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7" /></svg>
+            <motion.svg animate={{ y: [0, -3, 0] }} transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }} width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7" /></motion.svg>
           </button>
         </div>
       </div>

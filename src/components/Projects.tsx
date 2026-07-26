@@ -166,6 +166,7 @@ export default function Projects() {
                         alt={p.title}
                         fill
                         style={{ objectFit: 'cover' }}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                     <span style={{ 
                       position: "absolute", top: "10px", right: "10px", 
@@ -189,14 +190,14 @@ export default function Projects() {
                     </div>
 
                     <div style={{ display: "flex", gap: "10px" }}>
-                      <a href={p.live} target="_blank" rel="noopener noreferrer"
+                      <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href={p.live} target="_blank" rel="noopener noreferrer"
                         style={{ flex: 1, textAlign: "center", fontSize: "0.75rem", fontWeight: 600, padding: "10px", borderRadius: 100, background: "#ff7a00", color: "#000", textDecoration: "none" }}>
                         Live Demo
-                      </a>
-                      <a href={p.repo} target="_blank" rel="noopener noreferrer"
+                      </motion.a>
+                      <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href={p.repo} target="_blank" rel="noopener noreferrer"
                         style={{ flex: 1, textAlign: "center", fontSize: "0.75rem", fontWeight: 600, padding: "10px", borderRadius: 100, border: "1px solid rgba(255,255,255,0.1)", color: "#fff", textDecoration: "none" }}>
                         GitHub
-                      </a>
+                      </motion.a>
                     </div>
                   </div>
                 </motion.article>

@@ -97,9 +97,9 @@ export default function Skills() {
                 className="card skill-card"
               >
                 <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", marginBottom: "1.75rem" }}>
-                  <div style={{ width: 34, height: 34, borderRadius: 10, background: "rgba(255,122,0,0.08)", border: "1px solid rgba(255,122,0,0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", color: "var(--orange)" }}>
+                  <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 8, ease: "linear" }} style={{ width: 34, height: 34, borderRadius: 10, background: "rgba(255,122,0,0.08)", border: "1px solid rgba(255,122,0,0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", color: "var(--orange)" }}>
                     {cat.icon}
-                  </div>
+                  </motion.div>
                   <div style={{ fontFamily: "var(--font-syne)", fontWeight: 700, fontSize: "0.95rem", color: "var(--white)" }}>
                     {cat.label}
                   </div>
